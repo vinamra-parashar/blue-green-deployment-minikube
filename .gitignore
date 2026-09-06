@@ -1,0 +1,27 @@
+# ── Dependencies ──────────────────────────────────────────────
+node_modules/
+package-lock.json
+
+# ── Environment / Secrets ──────────────────────────────────────
+.env
+.env.*
+!.env.example          # Allow the example template to be committed
+
+# ── Kubernetes Secrets (NEVER commit real credentials) ─────────
+k8s/secret.yaml        # Real secret — use secret.example.yaml as template
+!k8s/secret.example.yaml
+
+# ── Docker ────────────────────────────────────────────────────
+Dockerfile             # Keep individual Dockerfiles ignored per original setting
+
+# ── OS & Editor ───────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+.vscode/
+.idea/
+
+# ── Logs ──────────────────────────────────────────────────────
+*.log
+npm-debug.log*

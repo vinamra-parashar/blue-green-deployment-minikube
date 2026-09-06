@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: blue-green
+  labels:
+    app: backend
+    tier: api
+    project: blue-green-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0          # Zero-downtime rolling updates
+  template:
+    metadata:
+      labels:
+        app: backend
+        tier: api
+    spec:
+      containers:
+        - name: backend
+          image: bg-backend:latest
+          imagePullPolicy: Never   # Use image loaded into Minikube — no registry needed
+          ports:
+            - containerPort: 5000
+              name: http
+
+          # ── Environment Variables ──────────────────────────────
+          env:
+            - name: PORT
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: PORT
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: MONGO_URI
+            - name: NODE_ENV
+              value: "production"
+
+          # ── Resource Requests & Limits ─────────────────────────
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+
+          # ── Liveness Probe ─────────────────────────────────────
+          # Restarts container if /health stops responding
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 20    # Give Mongo connection time to establish
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          # ── Readiness Probe ────────────────────────────────────
+          # Removes pod from Service endpoints until it's truly ready
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          # ── Startup Probe ──────────────────────────────────────
+          # Gives slow-starting containers (Mongo connect) extra time
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            failureThreshold: 10
+            periodSeconds: 5           # Up to 50s to start before killing
+
+      restartPolicy: Always

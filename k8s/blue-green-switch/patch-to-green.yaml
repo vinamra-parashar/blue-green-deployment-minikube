@@ -1,0 +1,27 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# PATCH: Switch production traffic from BLUE → GREEN
+#
+# Apply with:  kubectl apply -f k8s/blue-green-switch/patch-to-green.yaml
+# Or use the switch script: ./scripts/bg-switch.sh green
+# ─────────────────────────────────────────────────────────────────────────────
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-active-service
+  namespace: blue-green
+  labels:
+    role: production
+    project: blue-green-deployment
+  annotations:
+    blue-green/active-slot: "green"
+    blue-green/last-switched: "to-green"
+spec:
+  type: NodePort
+  selector:
+    app: frontend-green       # ← SWITCHED to Green
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3200        # ← Green container port
+      nodePort: 30000

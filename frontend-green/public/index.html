@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration - Enhanced</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <header>
+        <div class="logo">
+          <i class="fas fa-user-plus"></i>
+        </div>
+        <h1>User Registration</h1>
+        <p class="version-badge">Enhanced UI</p>
+      </header>
+      
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress" id="progress"></div>
+          <div class="step active" data-step="1">1</div>
+          <div class="step" data-step="2">2</div>
+          <div class="step" data-step="3">3</div>
+        </div>
+      </div>
+      
+      <form id="registrationForm">
+        <div class="form-step active" id="step1">
+          <h2>Personal Information</h2>
+          
+          <div class="form-group">
+            <label for="name"><i class="fas fa-user"></i> Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="surname"><i class="fas fa-user-tag"></i> Surname</label>
+            <input type="text" id="surname" name="surname" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="dob"><i class="fas fa-calendar-alt"></i> Date of Birth</label>
+            <input type="date" id="dob" name="dob" required>
+          </div>
+          
+          <div class="form-buttons">
+            <button type="button" class="btn next-btn" id="next1">Next <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+        
+        <div class="form-step" id="step2">
+          <h2>Professional Information</h2>
+          
+          <div class="form-group">
+            <label for="job"><i class="fas fa-briefcase"></i> Job</label>
+            <input type="text" id="job" name="job" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="place"><i class="fas fa-map-marker-alt"></i> Place</label>
+            <input type="text" id="place" name="place" required>
+          </div>
+          
+          <div class="form-buttons">
+            <button type="button" class="btn prev-btn" id="prev2"><i class="fas fa-arrow-left"></i> Previous</button>
+            <button type="button" class="btn next-btn" id="next2">Next <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+        
+        <div class="form-step" id="step3">
+          <h2>Personal Interests</h2>
+          
+          <div class="form-group">
+            <label for="interestInput"><i class="fas fa-heart"></i> Interests</label>
+            <div class="tag-input">
+              <input type="text" id="interestInput" placeholder="Add interests and press Enter or comma">
+              <div class="tags" id="interestTags"></div>
+              <input type="hidden" id="interests" name="interests">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="languageInput"><i class="fas fa-language"></i> Known Languages</label>
+            <div class="tag-input">
+              <input type="text" id="languageInput" placeholder="Add languages and press Enter or comma">
+              <div class="tags" id="languageTags"></div>
+              <input type="hidden" id="knownLanguages" name="knownLanguages">
+            </div>
+          </div>
+          
+          <div class="form-buttons">
+            <button type="button" class="btn prev-btn" id="prev3"><i class="fas fa-arrow-left"></i> Previous</button>
+            <button type="submit" class="btn submit-btn">Submit <i class="fas fa-check"></i></button>
+          </div>
+        </div>
+      </form>
+      
+      <div id="message" class="message-container"></div>
+    </div>
+  </div>
+  
+  <script src="app.js"></script>
+</body>
+</html>

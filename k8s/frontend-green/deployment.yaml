@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-green-deployment
+  namespace: blue-green
+  labels:
+    app: frontend-green
+    tier: frontend
+    deployment: green
+    project: blue-green-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-green
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: frontend-green
+        tier: frontend
+        deployment: green
+    spec:
+      containers:
+        - name: frontend-green
+          image: bg-frontend-green:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3200
+              name: http
+
+          # ── Environment Variables ──────────────────────────────
+          env:
+            - name: PORT
+              value: "3200"
+            - name: NODE_ENV
+              value: "production"
+
+          # ── Resource Requests & Limits ─────────────────────────
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "150m"
+
+          # ── Liveness Probe ─────────────────────────────────────
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3200
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          # ── Readiness Probe ────────────────────────────────────
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3200
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          # ── Startup Probe ──────────────────────────────────────
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 3200
+            failureThreshold: 6
+            periodSeconds: 5
+
+      restartPolicy: Always

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-blue-service
+  namespace: blue-green
+  labels:
+    app: frontend-blue
+    deployment: blue
+    project: blue-green-deployment
+spec:
+  # NodePort: accessible from outside the cluster via minikube_ip:30100
+  type: NodePort
+  selector:
+    app: frontend-blue
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3100          # Service port (internal cluster)
+      targetPort: 3100    # Container port
+      nodePort: 30100     # External port on the Minikube node

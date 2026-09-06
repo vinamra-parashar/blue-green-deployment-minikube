@@ -432,19 +432,17 @@ minikube service frontend-active-service -n blue-green
 
 <img width="1681" height="532" alt="image" src="https://github.com/user-attachments/assets/f67a204f-6d59-48b8-b368-037e4e007122" />
 
-> ```
-> NAMES               STATUS                   PORTS
-> bg-backend          Up X seconds (healthy)   0.0.0.0:5000->5000/tcp
-> bg-frontend-blue    Up X seconds (healthy)   0.0.0.0:3100->3100/tcp
-> bg-frontend-green   Up X seconds (healthy)   0.0.0.0:3200->3200/tcp
-> ```
+<img width="1509" height="92" alt="image" src="https://github.com/user-attachments/assets/42714430-bc65-4b3a-8714-a70be7a1dbdc" />
 
 ---
 
 ### 3. Kubernetes Pods and Services in Minikube
 
 <img width="1193" height="347" alt="image" src="https://github.com/user-attachments/assets/324e3006-3a0b-464d-a3ac-e55e43f7d28e" />
+<img width="892" height="273" alt="image" src="https://github.com/user-attachments/assets/c14fd452-a894-4aab-92bb-f4163eb36e4e" />
 <img width="1101" height="861" alt="image" src="https://github.com/user-attachments/assets/ebee4aed-57df-41c1-9c55-0dcb7c4ab2dd" />
+<img width="887" height="283" alt="image" src="https://github.com/user-attachments/assets/20301745-24a6-4896-b55b-63fb1333b880" />
+
 <img width="1148" height="862" alt="image" src="https://github.com/user-attachments/assets/192d99a7-e605-4a7a-9ee9-513b66d2329d" />
 
 > screenshot of `kubectl get all -n blue-green` showing:_

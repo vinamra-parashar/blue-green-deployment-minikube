@@ -421,15 +421,17 @@ minikube service frontend-active-service -n blue-green
 
 ### 1. Local Development Running
 
-> **[SCREENSHOT PLACEHOLDER]**
-> _Add screenshot of all three services running locally (`npm start` on ports 5000, 3100, 3200)_
+<img width="502" height="113" alt="image" src="https://github.com/user-attachments/assets/6fa033cd-ba2c-436d-a50e-5d6cb29b4137" />
+<img width="1095" height="916" alt="image" src="https://github.com/user-attachments/assets/c90a8853-28f0-4174-af30-529c38a01045" />
+<img width="1147" height="871" alt="image" src="https://github.com/user-attachments/assets/8694fe26-3773-41a0-89e6-eb453157fe26" />
+<img width="821" height="685" alt="image" src="https://github.com/user-attachments/assets/7f75db93-aa19-4d02-8a5e-7301ad409046" />
 
 ---
 
 ### 2. Docker Containers Running
 
-> **[SCREENSHOT PLACEHOLDER]**
-> _Add screenshot of `docker compose ps` output showing all three containers `healthy`:_
+<img width="1681" height="532" alt="image" src="https://github.com/user-attachments/assets/f67a204f-6d59-48b8-b368-037e4e007122" />
+
 > ```
 > NAMES               STATUS                   PORTS
 > bg-backend          Up X seconds (healthy)   0.0.0.0:5000->5000/tcp
@@ -441,8 +443,11 @@ minikube service frontend-active-service -n blue-green
 
 ### 3. Kubernetes Pods and Services in Minikube
 
-> **[SCREENSHOT PLACEHOLDER]**
-> _Add screenshot of `kubectl get all -n blue-green` showing:_
+<img width="1193" height="347" alt="image" src="https://github.com/user-attachments/assets/324e3006-3a0b-464d-a3ac-e55e43f7d28e" />
+<img width="1101" height="861" alt="image" src="https://github.com/user-attachments/assets/ebee4aed-57df-41c1-9c55-0dcb7c4ab2dd" />
+<img width="1148" height="862" alt="image" src="https://github.com/user-attachments/assets/192d99a7-e605-4a7a-9ee9-513b66d2329d" />
+
+> screenshot of `kubectl get all -n blue-green` showing:_
 > - All 4 pods `Running` with `READY 1/1`
 > - 3 services (backend ClusterIP, two NodePort frontends)
 > - `frontend-active-service` NodePort :30000
@@ -452,15 +457,17 @@ minikube service frontend-active-service -n blue-green
 
 ### 4. Blue-Green Deployment Switch in Action
 
-> **[SCREENSHOT PLACEHOLDER — Step A]**
-> _Add screenshot of `./scripts/bg-switch.sh status` showing:_
+<img width="628" height="242" alt="image" src="https://github.com/user-attachments/assets/c2c0422d-54f2-42ef-9d6f-0ebf5771e362" />
+
+> screenshot of `./scripts/bg-switch.sh status` showing:_
 > ```
 > Active Slot  : 🔵 BLUE (port 3100)
 > Idle   Slot  : ⚫ Green (port 3200) — standby
 > ```
 
-> **[SCREENSHOT PLACEHOLDER — Step B]**
-> _Add screenshot of `./scripts/bg-switch.sh green` output:_
+<img width="546" height="363" alt="image" src="https://github.com/user-attachments/assets/dc5f1684-263a-4ef9-a59d-f9afc6848728" />
+
+> screenshot of `./scripts/bg-switch.sh green` output:_
 > ```
 > [✓] 1 GREEN pod(s) confirmed Ready — safe to switch.
 > service/frontend-active-service patched
@@ -468,8 +475,10 @@ minikube service frontend-active-service -n blue-green
 > ✅ Switch Complete! Production now serving: 🟢 GREEN
 > ```
 
-> **[SCREENSHOT PLACEHOLDER — Step C]**
-> _Add screenshot comparing the `/health` response before and after the switch:_
+<img width="699" height="118" alt="image" src="https://github.com/user-attachments/assets/106de5db-d88f-4596-9857-95308b923678" />
+<img width="581" height="108" alt="image" src="https://github.com/user-attachments/assets/8459dbfa-3230-4ad4-804d-b3dc2f01e195" />
+
+> screenshot comparing the `/health` response before and after the switch:_
 > - Before: `{"message":"Basic frontend is running","version":"basic"}`
 > - After: `{"message":"Green frontend is running","version":"green"}`
 
